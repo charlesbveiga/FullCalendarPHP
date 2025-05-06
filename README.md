@@ -1,2 +1,2 @@
 # FullCalendarPHP
-Criação de uma agenda PHP com cadastro de usuários e Clientes, para agendamento de atendimentos
+Criação de uma agenda, utilizando FullCalendar, Bootstrap, PHP, mysql, JS, com cadastro de usuários e Clientes, para agendamento de atendimentos.
