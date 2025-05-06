@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
         //Receber o ID do usuário do campo Select
         var user_id = document.getElementById('user_id').value;
 
+        //Receber o ID do cliente do campo Select
+        var client_id = document.getElementById('client_id').value;
+
         //Instanciar FullCalendar.Calendar e atribuir a variável calendar
         var calendar = new FullCalendar.Calendar(calendarEl, {
 
@@ -43,7 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
             dayMaxEvents: true, //Número de eventos em um determinado dia, se for true, o número de eventos será limitado à altura da célula do dia.
 
             //Chamar o arquivo PHP para recuperar os eventos
-            events: 'listar_evento.php?user_id=' + user_id,
+            events: 'listar_evento.php?user_id=' + user_id + '&client_id=' + client_id,
+
             // Identificar o clique do usuário sobre o evento
             eventClick: function (info) {
 
@@ -85,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 //Receber o SELETOR do campo usuário do formulário cadastrar
                 var cadUserId = document.getElementById('cad_user_id');
 
-                //Chamar o arquivo PHP responsável por recuperar  os usuários do Banco de dados
+                //Chamar o arquivo PHP responsável por recuperar  os Cliente do Banco de dados
                 const dados = await fetch('listar_usuarios.php?profissional=S');
 
                 //Ler os dados
@@ -93,13 +97,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 //console.log(resposta);
 
                 if (resposta['status']) {
-                    //Criar a opção selecione para o campo select usuários
+                    //Criar a opção selecione para o campo select Cliente
                     var opcoes = '<option value="">Selecione</option>';
 
-                    //Percorrer a lista de usuários
+                    //Percorrer a lista de Cliente
                     for (var i = 0; i < resposta.dados.length; i++) {
 
-                        //Criar a lista de opções para o select usuários
+                        //Criar a lista de opções para o select Cliente
                         opcoes += `<option value="${resposta.dados[i]['id']}">${resposta.dados[i]['name']}</option>`;
                     }
 
@@ -172,6 +176,24 @@ document.addEventListener('DOMContentLoaded', function () {
         // Renderizar o calendário
         calendar.render();
     });
+
+    //Receber o Seletor client_id do campo select
+    var clientId = document.getElementById('client_id');
+
+    //Aguardar o usuário selecionar valor no campo selecionar cliente
+    clientId.addEventListener('change', function () {
+        //console.log("Recuperar" + clientId.value);
+
+        //Chamar a função carregar eventos do cliente
+        calendar = carregarEventos();
+
+        // Renderizar o calendário
+        calendar.render();
+    });
+
+
+
+
 
     //Converter data
     function converterData(data) {
@@ -313,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
             //Receber o SELETOR do campo usuário do formulário editar
             var editUserId = document.getElementById('edit_user_id');
 
-            //Chamar o arquivo PHP responsável por recuperar  os usuários do Banco de dados
+            //Chamar o arquivo PHP responsável por recuperar  os Cliente do Banco de dados
             const dados = await fetch('listar_usuarios.php?profissional=S');
 
             //Ler os dados
@@ -321,13 +343,13 @@ document.addEventListener('DOMContentLoaded', function () {
             //console.log(resposta);
 
             if (resposta['status']) {
-                //Criar a opção selecione para o campo select usuários
+                //Criar a opção selecione para o campo select Cliente
                 var opcoes = '<option value="">Selecione</option>';
 
-                //Percorrer a lista de usuários
+                //Percorrer a lista de Cliente
                 for (var i = 0; i < resposta.dados.length; i++) {
 
-                    //Criar a lista de opções para o select usuários
+                    //Criar a lista de opções para o select Cliente
                     opcoes += `<option value="${resposta.dados[i]['id']}" 
                                               ${userId == resposta.dados[i]['id'] ? 'selected' : ""}>
                                               ${resposta.dados[i]['name']}</option>`;
@@ -531,7 +553,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-//Receber o seletor do campo listar usuários
+//Receber o seletor do campo listar Usuário
 const user = document.getElementById("user_id");
 
 //Verificar se existe o seletor user_id no html
@@ -555,5 +577,32 @@ async function listarUsuarios() {
     } else {
         user.innerHTML = `<option value="">${resposta['msg']}</option>`;
     }
+}
 
+//ggg
+
+//Receber o seletor do campo listar Cliente
+const client = document.getElementById("client_id");
+
+//Verificar se existe o seletor client_id no html
+if (client) {
+    //Chamar a função
+    listarClientes();
+}
+async function listarClientes() {
+    const dados = await fetch('listar_usuarios.php');
+
+    const resposta = await dados.json();
+    //console.log(resposta);
+
+    if (resposta['status']) {
+        var opcoes = `<option value="">Selecionar ou Limpar</option>`;
+
+        for (var i = 0; i < resposta.dados.length; i++) {
+            opcoes += `<option value="${resposta.dados[i]['id']}">${resposta.dados[i]['name']}</option>`;
+        }
+        client.innerHTML = opcoes;
+    } else {
+        client.innerHTML = `<option value="">${resposta['msg']}</option>`;
+    }
 }

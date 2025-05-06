@@ -31,13 +31,20 @@
             <div class="card-body">
                 <h2 class="mt-0 me-3 ms-2 pb-2 border-bottom">Agenda</h2>
                 <span id="msg"></span>
-                <form class="ms-2 me-2">
-                    <div class="col-md-6 col-sm-12">
+                <form class="ms-2 me-2 row g-3">
+
+                    <div class="col-md-5 col-sm-12">
                         <label class="form-label" for="user_id">Pesquisar Tarefas do Profissional</label>
                         <select name="user_id" id="user_id" class="form-select">
                             <option value="">Selecione</option>
-
                         </select>
+                    </div>
+
+                    <div class="col-md-5 col-sm-12">
+                        <label class="form-label" for="client_id">Pesquisar Atendimento do Cliente</label>
+                        <!-- <select name="client_id" id="client_id" class="form-select">
+                            <option value="">Selecione</option>
+                        </select> -->
                     </div>
 
                 </form>
