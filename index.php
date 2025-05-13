@@ -7,8 +7,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
-
     <link href="css/custom.css" rel=stylesheet>
+
     <title>Agenda</title>
 
     <script>
@@ -27,13 +27,13 @@
 
     <div class="container">
 
-        <div class="card mb-4 border-ligth shadow">
+        <div class="card mb-4 border-light shadow">
             <div class="card-body">
                 <h2 class="mt-0 me-3 ms-2 pb-2 border-bottom">Agenda</h2>
                 <span id="msg"></span>
                 <form class="ms-2 me-2 row g-3">
 
-                    <div class="col-md-5 col-sm-12">
+                    <div class="col-md-5 col-sm-12 col-12">
                         <label class="form-label" for="user_id">Pesquisar Tarefas do Profissional</label>
                         <select name="user_id" id="user_id" class="form-select">
                             <option value="">Selecione</option>
@@ -42,9 +42,15 @@
 
                     <div class="col-md-5 col-sm-12">
                         <label class="form-label" for="client_id">Pesquisar Atendimento do Cliente</label>
-                        <!-- <select name="client_id" id="client_id" class="form-select">
-                            <option value="">Selecione</option>
-                        </select> -->
+                        <input type="text" name="client_id" id="client_id" data-target-pesq-client-id="" class="form-control" placeholder="Pesquisar Cliente">
+                        <!--Carregar as opções retornadas do BD -->
+                        <span id="resultado_pesquisa" style="position: absolute; z-index: 1;"></span>
+                    </div>
+
+                    <div class="col-md-2 col-sm-12 mt-md-4 pt-md-3">
+                        <button type="button" class="btn btn-warning mt-md-1"
+                            id="limparPesquisaUsuarioCliente">Limpar Cliente
+                        </button>
                     </div>
 
                 </form>
@@ -283,11 +289,24 @@
         </div>
     </div>
 
+    <!-- Scripts Bootstrap e dependências -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
     <script src='js/index.global.min.js'></script>
     <script src='js/bootstrap5/index.global.min.js'></script>
     <script src='js/core/locales-all.global.min.js'></script>
-    <script src='js/custom.js'></script>
+
+    <!-- Scripts customizados -->
+    <script src="js/custom.js"></script>
+    <script src="js/converter_data.js"></script>
+    <script src="js/listar_usuario.js"></script>
+    <script src="js/listar_cliente.js"></script>
+    <script src="js/carregar_eventos.js"></script>
+    <script src="js/carregar_eventos_profissional.js"></script>
+    <script src="js/carregar_eventos_cliente.js"></script>
+    <script src="js/editar_evento.js"></script>
+    <script src="js/cadastrar_evento.js"></script>
+    <script src="js/apagar_evento.js"></script>
+    <script src="js/pesquisar_cliente.js"></script>
 </body>
 
 </html>
